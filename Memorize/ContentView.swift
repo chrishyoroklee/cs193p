@@ -10,24 +10,24 @@ struct Theme {
     let name: String
     let symbol: String
     let color: Color
-    let emojis: [String]
+    var emojis: [String]
 }
 struct ContentView: View {
-    let themes: [Theme] = [
+    @State var themes: [Theme] = [
         Theme(
-            name: "ghosts",
+            name: "Ghosts",
             symbol: "👻",
             color: Color.gray,
             emojis: ["💀","👽","😈","👻","👺","🎃","🤡","👹"]
         ),
         Theme(
-            name: "animals",
+            name: "Animals",
             symbol: "🐻‍❄️",
             color: Color.yellow,
-            emojis: ["😾","🦅","🙊","🐻","🐿️","🐼","🐻‍❄️","🦁","🐯"]
+            emojis: ["😾","🙊","🐻","🐿️","🐼","🐻‍❄️","🦁","🐯"]
         ),
         Theme(
-            name: "countries",
+            name: "Countries",
             symbol: "🇺🇸",
             color: Color.black,
             emojis: ["🇦🇹","🇪🇨","🇯🇵","🇮🇳","🇰🇷","🇺🇸"]
@@ -62,8 +62,15 @@ struct ContentView: View {
     var buttons: some View{
         HStack{
             ForEach(themes.indices, id: \.self) { index in
-                Button(action: {selectedThemeIndex = index}){
-                    Text("\(themes[index].symbol) \(themes[index].name)")
+                Button(action: {
+                    themes[index].emojis.shuffle()
+                    print(themes[index].emojis)
+                    selectedThemeIndex = index
+                }){
+                    VStack{
+                        Text("\(themes[index].symbol)")
+                        Text(" \(themes[index].name)")
+                    }
                 }
             }
         }
