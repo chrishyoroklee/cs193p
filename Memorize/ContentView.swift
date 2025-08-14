@@ -8,10 +8,11 @@
 import SwiftUI
 
 struct ContentView: View {
-    let ghosts: [String] = ["💀","👽","😈","👻","👺","🎃","🤡","👹"]
-    let animals: [String] = ["😾","🦅","🙊","🐻","🐿️","🐼","🐻‍❄️","🦁","🐯"]
-    let countries: [String] = ["🇦🇹","🇪🇨","🇯🇵","🇮🇳","🇰🇷","🇺🇸"]
-    var theme: [String] = []
+    //0 array ghosts, 1th array animals, 2nd array countries
+    @State var emojis: [[String]] = [["💀","👽","😈","👻","👺","🎃","🤡","👹"],["😾","🦅","🙊","🐻","🐿️","🐼","🐻‍❄️","🦁","🐯"],["🇦🇹","🇪🇨","🇯🇵","🇮🇳","🇰🇷","🇺🇸"]]
+    @State var emojiIndex = 0
+    @State var color = Color.pink
+    
     var body: some View {
         VStack{
             Text("Memorize!")
@@ -20,32 +21,44 @@ struct ContentView: View {
                 cards
             }
             .padding()
-            
-            HStack{
-                Button(action: ghostTheme){
-                    Text("Ghost")
-                }
-                Button(action: ghostTheme){
-                    Text("Animals")
-                }
-                Button(action: ghostTheme){
-                    Text("Countries")
-                }
-            }
+            buttons
         }
     }
     
     var cards: some View {
         LazyVGrid(columns: [GridItem(.adaptive(minimum: 120))]){
-            ForEach(animals.indices, id: \.self) { index in
-                CardView(content: animals[index])
+            ForEach(emojis[emojiIndex].indices, id: \.self) { index in
+                CardView(content: emojis[emojiIndex][index])
                     .aspectRatio(2/3, contentMode: .fit)
             }
         }
-        .foregroundColor(.pink)
+        .foregroundColor(color)
+    }
+    
+    var buttons: some View{
+        HStack{
+            Button(action: ghostTheme){
+                    Text("👻Ghost")
+                }
+            Button(action: animalTheme){
+                    Text("🐻‍❄️Animals")
+                }
+            Button(action: countryTheme){
+                    Text("🇺🇸Countries")
+                }
+        }
     }
     func ghostTheme(){
-        
+        emojiIndex = 0
+        color = Color.gray
+    }
+    func animalTheme(){
+        emojiIndex = 1
+        color = Color.yellow
+    }
+    func countryTheme(){
+        emojiIndex = 2
+        color = Color.black
     }
 }
 
@@ -67,22 +80,6 @@ struct CardView: View {
         .onTapGesture {
             isFaceUp.toggle()
         }
-    }
-}
-
-struct ButtonView: View{
-    @State var theme: String = "Ghosts"
-    
-    var body: some View{
-        HStack{
-            Button(action: themeChooser){
-                Text("Ghosts")
-            }
-        }
-    }
-    
-    func themeChooser(){
-        
     }
 }
 
