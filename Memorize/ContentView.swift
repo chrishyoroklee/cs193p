@@ -6,11 +6,35 @@
 //
 
 import SwiftUI
-
+struct Theme {
+    let name: String
+    let symbol: String
+    let color: Color
+    let emojis: [String]
+}
 struct ContentView: View {
-    //0 array ghosts, 1th array animals, 2nd array countries
-    @State var emojis: [[String]] = [["💀","👽","😈","👻","👺","🎃","🤡","👹"],["😾","🦅","🙊","🐻","🐿️","🐼","🐻‍❄️","🦁","🐯"],["🇦🇹","🇪🇨","🇯🇵","🇮🇳","🇰🇷","🇺🇸"]]
-    @State var emojiIndex = 0
+    let themes: [Theme] = [
+        Theme(
+            name: "ghosts",
+            symbol: "👻",
+            color: Color.gray,
+            emojis: ["💀","👽","😈","👻","👺","🎃","🤡","👹"]
+        ),
+        Theme(
+            name: "animals",
+            symbol: "🐻‍❄️",
+            color: Color.yellow,
+            emojis: ["😾","🦅","🙊","🐻","🐿️","🐼","🐻‍❄️","🦁","🐯"]
+        ),
+        Theme(
+            name: "countries",
+            symbol: "🇺🇸",
+            color: Color.black,
+            emojis: ["🇦🇹","🇪🇨","🇯🇵","🇮🇳","🇰🇷","🇺🇸"]
+        )
+    ]
+
+    @State var selectedThemeIndex = 0
     @State var color = Color.pink
     
     var body: some View {
@@ -27,8 +51,8 @@ struct ContentView: View {
     
     var cards: some View {
         LazyVGrid(columns: [GridItem(.adaptive(minimum: 120))]){
-            ForEach(emojis[emojiIndex].indices, id: \.self) { index in
-                CardView(content: emojis[emojiIndex][index])
+            ForEach(themes[selectedThemeIndex].emojis.indices, id: \.self) { index in
+                CardView(content: themes[selectedThemeIndex].emojis[index])
                     .aspectRatio(2/3, contentMode: .fit)
             }
         }
@@ -37,28 +61,12 @@ struct ContentView: View {
     
     var buttons: some View{
         HStack{
-            Button(action: ghostTheme){
-                    Text("👻Ghost")
+            ForEach(themes.indices, id: \.self) { index in
+                Button(action: {selectedThemeIndex = index}){
+                    Text("\(themes[index].symbol) \(themes[index].name)")
                 }
-            Button(action: animalTheme){
-                    Text("🐻‍❄️Animals")
-                }
-            Button(action: countryTheme){
-                    Text("🇺🇸Countries")
-                }
+            }
         }
-    }
-    func ghostTheme(){
-        emojiIndex = 0
-        color = Color.gray
-    }
-    func animalTheme(){
-        emojiIndex = 1
-        color = Color.yellow
-    }
-    func countryTheme(){
-        emojiIndex = 2
-        color = Color.black
     }
 }
 
