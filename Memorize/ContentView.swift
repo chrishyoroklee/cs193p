@@ -8,34 +8,34 @@
 import SwiftUI
 struct Theme {
     let name: String
-    let symbol: String
+    let symbol: Image
     let color: Color
     var emojis: [String]
 }
+
 struct ContentView: View {
     @State var themes: [Theme] = [
         Theme(
             name: "Ghosts",
-            symbol: "👻",
+            symbol: Image(systemName: "figure"),
             color: Color.gray,
             emojis: ["💀","👽","😈","👻","👺","🎃","🤡","👹"]
         ),
         Theme(
             name: "Animals",
-            symbol: "🐻‍❄️",
+            symbol: Image(systemName: "teddybear"),
             color: Color.yellow,
             emojis: ["😾","🙊","🐻","🐿️","🐼","🐻‍❄️","🦁","🐯"]
         ),
         Theme(
             name: "Countries",
-            symbol: "🇺🇸",
-            color: Color.black,
+            symbol: Image(systemName: "flag"),
+            color: Color.purple,
             emojis: ["🇦🇹","🇪🇨","🇯🇵","🇮🇳","🇰🇷","🇺🇸"]
         )
     ]
 
     @State var selectedThemeIndex = 0
-    @State var color = Color.pink
     
     var body: some View {
         VStack{
@@ -56,7 +56,7 @@ struct ContentView: View {
                     .aspectRatio(2/3, contentMode: .fit)
             }
         }
-        .foregroundColor(color)
+        .foregroundColor(themes[selectedThemeIndex].color)
     }
     
     var buttons: some View{
@@ -79,7 +79,7 @@ struct ContentView: View {
 
 struct CardView: View {
     let content: String
-    @State var isFaceUp: Bool = true
+    @State var isFaceUp: Bool = false
     
     var body: some View {
         ZStack {
