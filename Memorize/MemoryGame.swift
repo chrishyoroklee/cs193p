@@ -1,5 +1,5 @@
 //
-//  MemorizeGame.swift
+//  MemoryGame.swift
 //  Memorize
 //
 //  Created by 이효록 on 8/14/25.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct MemorizeGame<CardContent>  {
+struct MemoryGame<CardContent>  {
     private(set) var cards: Array<Card>
     
     init(numberOfPairsOfCards: Int, cardContentFactory: (Int) -> CardContent){

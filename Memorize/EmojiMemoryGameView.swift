@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  EmojiMemoryGameView.swift
 //  Memorize
 //
 //  Created by 이효록 on 8/12/25.
@@ -13,7 +13,7 @@ struct Theme {
     var emojis: [String]
 }
 
-struct ContentView: View {
+struct EmojiMemoryGameView: View {
 //    var viewModel: EmojiMemoryGame
     
     @State var themes: [Theme] = [
@@ -101,5 +101,5 @@ struct CardView: View {
 }
 
 #Preview {
-    ContentView()
+    EmojiMemoryGameView()
 }
