@@ -14,6 +14,8 @@ struct Theme {
 }
 
 struct ContentView: View {
+//    var viewModel: EmojiMemoryGame
+    
     @State var themes: [Theme] = [
         Theme(
             name: "Ghosts",
