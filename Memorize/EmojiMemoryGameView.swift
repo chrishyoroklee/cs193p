@@ -6,36 +6,9 @@
 //
 
 import SwiftUI
-struct Theme {
-    let name: String
-    let symbol: Image
-    let color: Color
-    var emojis: [String]
-}
 
 struct EmojiMemoryGameView: View {
     @ObservedObject var viewModel: EmojiMemoryGame
-    
-    @State var themes: [Theme] = [
-        Theme(
-            name: "Ghosts",
-            symbol: Image(systemName: "figure"),
-            color: Color.gray,
-            emojis: ["💀","👽","😈","👻","👺","🎃","🤡","👹"]
-        ),
-        Theme(
-            name: "Animals",
-            symbol: Image(systemName: "teddybear"),
-            color: Color.yellow,
-            emojis: ["😾","🙊","🐻","🐿️","🐼","🐻‍❄️","🦁","🐯"]
-        ),
-        Theme(
-            name: "Countries",
-            symbol: Image(systemName: "flag"),
-            color: Color.purple,
-            emojis: ["🇦🇹","🇪🇨","🇯🇵","🇮🇳","🇰🇷","🇺🇸"]
-        )
-    ]
 
     @State var selectedThemeIndex = 0
     
@@ -45,6 +18,7 @@ struct EmojiMemoryGameView: View {
                 .font(.title)
             ScrollView{
                 cards
+                    .animation(.default, value: viewModel.cards)
             }
             .padding()
             buttons
@@ -53,10 +27,13 @@ struct EmojiMemoryGameView: View {
     
     var cards: some View {
         LazyVGrid(columns: [GridItem(.adaptive(minimum: 85), spacing: 0)], spacing: 0){
-            ForEach(viewModel.cards.indices, id: \.self) { index in
-                CardView(viewModel.cards[index])
+            ForEach(viewModel.cards) { card in
+                CardView(card)
                     .aspectRatio(2/3, contentMode: .fit)
                     .padding(4)
+                    .onTapGesture {
+                        viewModel.choose(card)
+                    }
             }
         }
         .foregroundColor(Color.orange)
@@ -64,18 +41,18 @@ struct EmojiMemoryGameView: View {
     
     var buttons: some View{
         HStack{
-            ForEach(themes.indices, id: \.self) { index in
-                Button(action: {
-                    themes[index].emojis.shuffle()
-                    print(themes[index].emojis)
-                    selectedThemeIndex = index
-                }){
-                    VStack{
-                        Text("\(themes[index].symbol)")
-                        Text(" \(themes[index].name)")
-                    }
-                }
-            }
+//            ForEach(themes.indices, id: \.self) { index in
+//                Button(action: {
+//                    themes[index].emojis.shuffle()
+//                    print(themes[index].emojis)
+//                    selectedThemeIndex = index
+//                }){
+//                    VStack{
+//                        Text("\(themes[index].symbol)")
+//                        Text(" \(themes[index].name)")
+//                    }
+//                }
+//            }
             Button("Shuffle"){
                 viewModel.shuffle()
             }
@@ -104,6 +81,7 @@ struct CardView: View {
             .opacity(card.isFaceUp ? 1 : 0)
             base.fill().opacity(card.isFaceUp ? 0 : 1)
         }
+        .opacity(card.isFaceUp || !card.isMatched ? 1 : 0)
 
     }
 }

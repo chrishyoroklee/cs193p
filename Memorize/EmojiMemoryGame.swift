@@ -6,9 +6,35 @@
 //
 
 import SwiftUI
+struct Theme {
+    let name: String
+    let symbol: Image
+    let color: Color
+    var emojis: [String]
+}
 
 class EmojiMemoryGame: ObservableObject {
     private static let emojis = ["💀","👽","😈","👻","👺","🎃","🤡","👹"]
+    @State var themes: [Theme] = [
+        Theme(
+            name: "Ghosts",
+            symbol: Image(systemName: "figure"),
+            color: Color.gray,
+            emojis: ["💀","👽","😈","👻","👺","🎃","🤡","👹"]
+        ),
+        Theme(
+            name: "Animals",
+            symbol: Image(systemName: "teddybear"),
+            color: Color.yellow,
+            emojis: ["😾","🙊","🐻","🐿️","🐼","🐻‍❄️","🦁","🐯"]
+        ),
+        Theme(
+            name: "Countries",
+            symbol: Image(systemName: "flag"),
+            color: Color.purple,
+            emojis: ["🇦🇹","🇪🇨","🇯🇵","🇮🇳","🇰🇷","🇺🇸"]
+        )
+    ]
     
     private static func createMemorizeGame() -> MemoryGame<String> {
         return MemoryGame(numberOfPairsOfCards: 6){ pairIndex in
