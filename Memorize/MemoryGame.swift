@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct MemoryGame<CardContent> where CardContent: Equatable {
     private(set) var cards: Array<Card>
@@ -70,6 +71,14 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
         let content: CardContent
         
         var id: String
+    }
+    
+    struct Theme {
+        let name: String
+        let symbol: Image
+        let color: Color
+        var emojis: [String]
+        let numPairs: Int
     }
     
 }
