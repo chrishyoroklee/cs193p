@@ -53,8 +53,17 @@ struct EmojiMemoryGameView: View {
 //                    }
 //                }
 //            }
-            Button("Shuffle"){
-                viewModel.shuffle()
+            VStack{
+                Image(systemName: "shuffle.circle")
+                Button("Shuffle"){
+                    viewModel.shuffle()
+                }
+            }
+            VStack{
+                Image(systemName: "doc.badge.plus")
+                Button("New Game"){
+                    viewModel.reset()
+                }
             }
         }
     }

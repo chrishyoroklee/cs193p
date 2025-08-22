@@ -61,4 +61,10 @@ class EmojiMemoryGame: ObservableObject {
     func shuffle(){
         model.shuffle()
     }
+    
+    //MARK: - FIX
+    //reset the game - turn all the isFaceUp and isMatched to false
+    func reset(){
+        model.reset()
+    }
 }
