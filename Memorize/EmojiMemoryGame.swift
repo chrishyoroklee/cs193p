@@ -9,26 +9,29 @@ import SwiftUI
 
 class EmojiMemoryGame: ObservableObject {
     private static let emojis = ["💀","👽","😈","👻","👺","🎃","🤡","👹"]
-//    @State var themes: [Theme] = [
-//        Theme(
-//            name: "Ghosts",
-//            symbol: Image(systemName: "figure"),
-//            color: Color.gray,
-//            emojis: ["💀","👽","😈","👻","👺","🎃","🤡","👹"]
-//        ),
-//        Theme(
-//            name: "Animals",
-//            symbol: Image(systemName: "teddybear"),
-//            color: Color.yellow,
-//            emojis: ["😾","🙊","🐻","🐿️","🐼","🐻‍❄️","🦁","🐯"]
-//        ),
-//        Theme(
-//            name: "Countries",
-//            symbol: Image(systemName: "flag"),
-//            color: Color.purple,
-//            emojis: ["🇦🇹","🇪🇨","🇯🇵","🇮🇳","🇰🇷","🇺🇸"]
-//        )
-//    ]
+    var themes: [Theme] = [
+        Theme(
+            name: "Ghosts",
+            symbol: Image(systemName: "figure"),
+            color: Color.gray,
+            emojis: ["💀","👽","😈","👻","👺","🎃","🤡","👹"],
+            numPairs: 10
+        ),
+        Theme(
+            name: "Animals",
+            symbol: Image(systemName: "teddybear"),
+            color: Color.yellow,
+            emojis: ["😾","🙊","🐻","🐿️","🐼","🐻‍❄️","🦁","🐯"],
+            numPairs: 10
+        ),
+        Theme(
+            name: "Countries",
+            symbol: Image(systemName: "flag"),
+            color: Color.purple,
+            emojis: ["🇦🇹","🇪🇨","🇯🇵","🇮🇳","🇰🇷","🇺🇸"],
+            numPairs: 10
+        )
+    ]
     
     private static func createMemorizeGame() -> MemoryGame<String> {
         return MemoryGame(numberOfPairsOfCards: 6){ pairIndex in

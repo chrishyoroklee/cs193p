@@ -72,14 +72,14 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
         var id: String
     }
     
-    struct Theme {
-        let name: String
-        let symbol: Image
-        let color: Color
-        var emojis: [String]
-        let numPairs: Int
-    }
-    
+}
+
+struct Theme {
+    let name: String
+    let symbol: Image
+    let color: Color
+    var emojis: [String]
+    let numPairs: Int
 }
 
 extension Array {
